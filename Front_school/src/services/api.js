@@ -13,8 +13,12 @@ export const createSession = async (email, password) => {
 };
 
 
-export const getCursos = async () => {
-    return api.get("/cursos");
+export const getCursos = async (nome, descricao, inscricao) => {
+    return api.get("/cursos",{
+        nome,
+        descricao,
+        
+    });
   
 };
 

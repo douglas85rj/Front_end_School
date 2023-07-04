@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {api, createSession} from "../services/api";
+import { api, createSession } from "../services/api";
 
 export const AuthContext = createContext();
 
@@ -12,34 +12,32 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storagedUser = localStorage.getItem("aluno");
-    if (storagedUser) {
+    const token = localStorage.getItem("token");
+
+    if (storagedUser && token) {
       setAluno(JSON.parse(storagedUser));
-    } setLoading(false);
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+    }
+    setLoading(false);
   }, []);
 
-  const login = async  (email, password) => {
-    console.log("login", { email, password });
+  const login = async (email, password) => {    
 
-    const response = await createSession(email, password);
-    console.log("login", response.data);
+    const response = await createSession(email, password);   
 
     const loggedUSer = response.data;
-    const token = response.data.token;    
+    const token = response.data.token;
 
     console.log("login", loggedUSer);
     console.log("login", token);
 
-        
     localStorage.setItem("aluno", JSON.stringify(loggedUSer));
-    localStorage.setItem("token", JSON.stringify(token));
-    
+    localStorage.setItem("token", token);
 
-    
     api.defaults.headers.Authorization = `Bearer ${token}`;
-   
-      setAluno( loggedUSer );
-      navigate("/");  
-      
+
+    setAluno(loggedUSer);
+    navigate("/");
   };
 
   const logout = () => {
