@@ -13,7 +13,7 @@ export const createSession = async (email, password) => {
 };
 
 
-export const getCursos = async (nome, descricao, inscricao) => {
+export const getCursos = async (nome, descricao) => {
     return api.get("/cursos",{
         nome,
         descricao,
@@ -21,6 +21,14 @@ export const getCursos = async (nome, descricao, inscricao) => {
     });
   
 };
+
+export const criarCurso = async (nome, descricao) => {
+    return api.post("/curso", {
+        nome,
+        descricao,
+        
+    });
+}
 
 
 
