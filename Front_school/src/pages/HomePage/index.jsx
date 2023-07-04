@@ -102,6 +102,57 @@ const Button = styled.button`
   }
 `;
 
+const FormCadastro = styled.form`
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+
+  input {
+    display: block;
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all ease 0.4s;
+    &:focus {
+      border: 1px solid #333;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    textarea {
+      display: block;
+      width: 600px;
+      height: 200px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: all ease 0.4s;
+      &:focus {
+        border: 1px solid #333;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+  }
+
+`;
+
+
+
+<ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />
 const HomePage = () => {
   useEffect(() => {
     (async () => {
@@ -113,6 +164,8 @@ const HomePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const nome = e.target.nome.value;
+    const descricao = e.target.descricao.value;
     const response = await criarCurso(nome, descricao);
     if (response.status === 201) {
       toast.success("Curso cadastrado com sucesso!");
@@ -123,10 +176,9 @@ const HomePage = () => {
     }
   };
 
-  
-
   const [nome, setNome] = useState(""); // [state, setState
   const [descricao, setDescricao] = useState(""); // [state, setState
+
   const [cursos, setCursos] = useState([]); // [state, setState
   const [loading, setLoading] = useState(true); // [state, setState
   const { logout } = useContext(AuthContext);
@@ -148,18 +200,14 @@ const HomePage = () => {
       </div>
       <div>
         <h2>Cadastrar curso</h2>
-        <FormContainer>
-          <Nav>
-            {" "}
-            <Label htmlFor="nome">Nome do Curso</Label>
-            <Input type="text" id="nome" />{" "}
-            <Label htmlFor="descricao">Descrição</Label>
-            <TextArea type="text" id="descricao" />
-            <button onClick={handleSubmit} type="submit">
-              Cadastrar
-            </button>
-          </Nav>
-        </FormContainer>
+        <FormCadastro>
+          <label htmlFor="nome">Nome</label>
+          <input type="text" name="nome" id="nome" />
+          <label htmlFor="descricao">Descrição</label>
+          <textArea name="descricao" id="descricao"></textArea>
+          <Button onClick={handleSubmit} type="submit">Cadastrar</Button>
+
+        </FormCadastro>
       </div>
       <div>
         <h2>Cursos disponíveis</h2>
@@ -184,7 +232,7 @@ const HomePage = () => {
         <h2>Contato</h2>
         <p>douglas85rj@gmail.com</p>
       </Footer>
-      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
+     
     </>
   );
 };
