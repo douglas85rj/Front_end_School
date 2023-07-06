@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { getCursos, criarCurso } from "../../services/api";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 const Table = styled.table`
@@ -88,37 +88,8 @@ const Footer = styled.footer`
   flex-direction: column;
   align-items: flex-start;
 `;
-const Input = styled.input`
-  width: 300px;
-  height: 40px;
-  padding: 0 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: all ease 0.4s;
-  &:focus {
-    border: 1px solid #333;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  }
-`;
-const FormContainer = styled.form`
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  flex-wrap: wrap;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-`;
-const Label = styled.label`
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 5px;
-`;
+
 const TextArea = styled.textarea`
- 
   height: 100px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -145,22 +116,6 @@ const Button = styled.button`
     background-color: #555;
   }
 `;
-
-const inputSubmit = styled.input`
-  padding: 0 20px;
-  height: 40px;
-  border: 0;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all ease 0.4s;
-  &:hover {
-    background-color: #555;
-  }
-`;
-
 
 const FormCadastro = styled.form`
 
@@ -211,7 +166,6 @@ const FormCadastro = styled.form`
 `;
 
 const HomePage = () => {
-
   useEffect(() => {
     (async () => {
       const response = await getCursos();
@@ -220,8 +174,8 @@ const HomePage = () => {
     })();
   }, []);
 
-  const[nome, setNome] = useState('');
-  const[descricao, setDescricao] = useState('');
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
 
   const [cursos, setCursos] = useState([]); // [state, setState
   const [loading, setLoading] = useState(true); // [state, setState
@@ -236,28 +190,24 @@ const HomePage = () => {
     const descricao = e.target.descricao.value;
     const response = await criarCurso(nome, descricao);
 
-
-    if (response.status === 201) {
-      toast.success('Curso cadastrado com sucesso!');
-      const novoCurso = response.data;  
-      setCursos([...cursos, novoCurso]);
+    if (response.status === 200) {
+      toast.success("Curso cadastrado com sucesso!");
+      const response = await getCursos();
+      setCursos(response.data);
+      
     } else {
-      toast.error('Erro ao cadastrar curso!');
+      toast.error("Erro ao cadastrar curso!");
     }
-
-
     e.target.reset();
-
+    getCursos();
+   
   };
 
   if (loading) {
     return <div className="loading">Carregando dados...</div>;
   }
 
- 
-
   return (
-    
     <>
       <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
       <div>
@@ -270,9 +220,18 @@ const HomePage = () => {
         <h2>Cadastrar curso</h2>
         <FormCadastro onSubmit={handleSubmit}>
           <label htmlFor="nome">Nome</label>
-          <input onChange={(e) => setNome(e.target.value)} type="text" name="nome" id="nome" />
+          <input
+            onChange={(e) => setNome(e.target.value)}
+            type="text"
+            name="nome"
+            id="nome"
+          />
           <label htmlFor="descricao">Descrição</label>
-          <TextArea onChange={(e) => setDescricao(e.target.value)} name="descricao" id="descricao"></TextArea>
+          <TextArea
+            onChange={(e) => setDescricao(e.target.value)}
+            name="descricao"
+            id="descricao"
+          ></TextArea>
           <button type="submit">Cadastrar</button>
         </FormCadastro>
       </div>
