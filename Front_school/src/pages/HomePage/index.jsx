@@ -146,6 +146,22 @@ const Button = styled.button`
   }
 `;
 
+const inputSubmit = styled.input`
+  padding: 0 20px;
+  height: 40px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all ease 0.4s;
+  &:hover {
+    background-color: #555;
+  }
+`;
+
+
 const FormCadastro = styled.form`
 
   display: flex;
@@ -195,7 +211,7 @@ const FormCadastro = styled.form`
 `;
 
 const HomePage = () => {
-  <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />;
+
   useEffect(() => {
     (async () => {
       const response = await getCursos();
@@ -204,6 +220,9 @@ const HomePage = () => {
     })();
   }, []);
 
+  const[nome, setNome] = useState('');
+  const[descricao, setDescricao] = useState('');
+
   const [cursos, setCursos] = useState([]); // [state, setState
   const [loading, setLoading] = useState(true); // [state, setState
   const { logout } = useContext(AuthContext);
@@ -211,15 +230,11 @@ const HomePage = () => {
     logout();
   };
 
-  if (loading) {
-    return <div className="loading">Carregando dados...</div>;
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const nome = e.target.nome.value;
     const descricao = e.target.descricao.value;
-    const response = await criarCurso(nome, descricao);
+    const response = await criarCurso(nome, descricao);   
     if (response.status === 201) {
       toast.success("Curso cadastrado com sucesso!");
       const response = await getCursos();
@@ -229,8 +244,16 @@ const HomePage = () => {
     }
   };
 
+  if (loading) {
+    return <div className="loading">Carregando dados...</div>;
+  }
+
+ 
+
   return (
+    
     <>
+      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />;
       <div>
         <h1>Graduação e Pós-graduação</h1>
         <Nav>
@@ -241,10 +264,10 @@ const HomePage = () => {
         <h2>Cadastrar curso</h2>
         <FormCadastro onSubmit={handleSubmit}>
           <label htmlFor="nome">Nome</label>
-          <input type="text" name="nome" id="nome" />
+          <input onChange={(e) => setNome(e.target.value)} type="text" name="nome" id="nome" />
           <label htmlFor="descricao">Descrição</label>
-          <TextArea name="descricao" id="descricao"></TextArea>
-          <Button type="submit">Cadastrar</Button>
+          <TextArea onChange={(e) => setDescricao(e.target.value)} name="descricao" id="descricao"></TextArea>
+          <button type="submit">Cadastrar</button>
         </FormCadastro>
       </div>
       <div>

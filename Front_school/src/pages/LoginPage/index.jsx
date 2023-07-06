@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/auth";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -65,6 +67,7 @@ const Form = styled.form`
   
 
 
+
   button {
 
     height: 40px;
@@ -92,11 +95,24 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit", { email, password });
-    login(email, password);
+
+    if (email === "" || password === "") {
+      toast.error("Preencha todos os campos!");
+      return;
+    }
+
+    
+
+  login(email, password);
+
+
+   
+      
   };
   return (
+    
     <Container>
+            <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />;
       <div className="login">
         <div className="login-triangle"></div>
         <h2 className="login-header">Login School</h2>
@@ -119,7 +135,7 @@ const LoginPage = () => {
             />
           </p>
           <p>
-            <input type="submit" value="Login" />
+            <input id="cad" type="submit" value="Login" />
           </p>
         </Form>
       </div>
