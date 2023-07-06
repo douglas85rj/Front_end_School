@@ -30,6 +30,32 @@ export const criarCurso = async (nome, descricao) => {
     });
 }
 
+export const cancelInscricao = async (id) => {
+    return api.delete(`/cancelar-inscricao/${id}`);
+}
+
+export const inscreverAluno = async (id) => {
+    return api.post(`/inscricao${id}`);
+}
+
+
+export const atualizarCurso = async (id, nome, descricao) => {
+    return api.put(`/curso/${id}`, {
+        nome,
+        descricao,
+    });
+}
+
+export const getAlunos = async (nome, email, curso) => {
+    return api.get("/alunos", {
+        nome,
+        email,
+        curso,
+    });
+}
+
+
+
 
 
 
