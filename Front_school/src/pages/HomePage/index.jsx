@@ -234,14 +234,20 @@ const HomePage = () => {
     e.preventDefault();
     const nome = e.target.nome.value;
     const descricao = e.target.descricao.value;
-    const response = await criarCurso(nome, descricao);   
+    const response = await criarCurso(nome, descricao);
+
+
     if (response.status === 201) {
-      toast.success("Curso cadastrado com sucesso!");
-      const response = await getCursos();
-      setCursos(response.data);
+      toast.success('Curso cadastrado com sucesso!');
+      const novoCurso = response.data;  
+      setCursos([...cursos, novoCurso]);
     } else {
-      toast.error("Erro ao cadastrar curso!");
+      toast.error('Erro ao cadastrar curso!');
     }
+
+
+    e.target.reset();
+
   };
 
   if (loading) {
@@ -253,7 +259,7 @@ const HomePage = () => {
   return (
     
     <>
-      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />;
+      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
       <div>
         <h1>Graduação e Pós-graduação</h1>
         <Nav>

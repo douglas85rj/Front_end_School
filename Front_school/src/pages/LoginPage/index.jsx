@@ -112,7 +112,7 @@ const LoginPage = () => {
   return (
     
     <Container>
-            <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />;
+            <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
       <div className="login">
         <div className="login-triangle"></div>
         <h2 className="login-header">Login School</h2>
