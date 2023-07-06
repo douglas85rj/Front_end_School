@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
+
 const Table = styled.table`
   width: 100%;
   background-color: #fff;
@@ -12,6 +13,7 @@ const Table = styled.table`
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+ 
   thead {
     font-size: 16px;
     color: #333;
@@ -117,6 +119,87 @@ const Button = styled.button`
   }
 `;
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px)
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+
+
+
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+
+  h2 {
+    font-size: 16px;
+    color: #333;
+  }
+
+  p {
+    font-size: 14px;
+    color: #555;
+  }
+`;
+
+const CardCurso = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  
+
+  h2 {
+    font-size: 16px;
+    color: #333;
+  }
+
+  p {
+    font-size: 14px;
+    color: #555;
+  }
+
+  button {
+    padding: 0 20px;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all ease 0.4s;
+    &:hover {
+      background-color: #555;
+    }
+  }
+`;
+
+
+
 const FormCadastro = styled.form`
 
   display: flex;
@@ -132,6 +215,8 @@ const FormCadastro = styled.form`
     font-size: 16px;
     color: #333;
     margin-bottom: 5px;
+    display: flex;
+  
   }
 
 
@@ -238,20 +323,19 @@ const HomePage = () => {
       <div>
         <h2>Cursos disponíveis</h2>
         {cursos.map((curso) => (
-          <Table key={curso.id}>
-            <thead>
-              <tr>
-                <th>{curso.nome}</th>
-                <th>{curso.descricao}</th>
-              </tr>
-            </thead>
-            {/* <tbody>
-              <tr>
-                <td>{curso.nome}</td>
-                <td>{curso.descricao}</td>
-              </tr>
-            </tbody>             */}
-          </Table>
+          
+            
+          <Grid key={curso.id} >
+            <Card>
+            <CardCurso>
+              <h2>{curso.nome}</h2>
+              <p>{curso.descricao}</p>
+              <button>Matricular</button>
+            </CardCurso>
+            </Card>                  
+          </Grid>
+   
+         
         ))}
       </div>
       <Footer>
