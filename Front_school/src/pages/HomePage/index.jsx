@@ -37,6 +37,52 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+  a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    transition: all ease 0.4s;
+    &:hover {
+      color: #555;
+    }
+  }
+
+  button {
+    padding: 0 20px;
+    align-self: flex-end;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all ease 0.4s;
+    &:hover {
+      background-color: #555;
+     
+    }
+  }
+
+  .active {
+    color: #555;
+  }
+
+  .logout {
+    margin-top: 20px;
+    background-color: #f00;
+    &:hover {
+      background-color: #f55;
+    }
+  }
+
+
 `;
 
 const Footer = styled.footer`
