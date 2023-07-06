@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/auth";
 import { getCursos, criarCurso } from "../../services/api";
 import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
 
 const Table = styled.table`
@@ -66,7 +67,6 @@ const Nav = styled.nav`
     transition: all ease 0.4s;
     &:hover {
       background-color: #555;
-     
     }
   }
 
@@ -81,8 +81,6 @@ const Nav = styled.nav`
       background-color: #f55;
     }
   }
-
-
 `;
 
 const Footer = styled.footer`
@@ -120,7 +118,7 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 const TextArea = styled.textarea`
-  width: 300px;
+ 
   height: 100px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -196,10 +194,6 @@ const FormCadastro = styled.form`
 
 `;
 
-
-
-
-
 const HomePage = () => {
   <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT} />;
   useEffect(() => {
@@ -221,10 +215,9 @@ const HomePage = () => {
     return <div className="loading">Carregando dados...</div>;
   }
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const nome = e.target.nome.value ;
+    const nome = e.target.nome.value;
     const descricao = e.target.descricao.value;
     const response = await criarCurso(nome, descricao);
     if (response.status === 201) {
@@ -236,7 +229,6 @@ const HomePage = () => {
     }
   };
 
-
   return (
     <>
       <div>
@@ -247,13 +239,12 @@ const HomePage = () => {
       </div>
       <div>
         <h2>Cadastrar curso</h2>
-        <FormCadastro onSubmit={handleSubmit}> 
+        <FormCadastro onSubmit={handleSubmit}>
           <label htmlFor="nome">Nome</label>
           <input type="text" name="nome" id="nome" />
           <label htmlFor="descricao">Descrição</label>
-          <textArea  name="descricao" id="descricao"></textArea>
+          <TextArea name="descricao" id="descricao"></TextArea>
           <Button type="submit">Cadastrar</Button>
-
         </FormCadastro>
       </div>
       <div>
@@ -279,7 +270,6 @@ const HomePage = () => {
         <h2>Contato</h2>
         <p>douglas85rj@gmail.com</p>
       </Footer>
-     
     </>
   );
 };
