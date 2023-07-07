@@ -5,7 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -17,31 +16,16 @@ const Container = styled.div`
   gap: 10px;
   max-width: 1200px;
 
-
-  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 4fr;
+   
   }
-
-  @media (min-width: 1025px) and (max-width: 1440px) {
-    grid-template-columns: 2fr 1fr 1fr;
-  }
-
-  @media (min-width: 1441px) {
-    grid-template-columns:  1fr;
-  }
-
-
-
 
 `;
-
-
-
 
 const Nav = styled.nav`
   display: flex;
@@ -113,6 +97,7 @@ const TextArea = styled.textarea`
 
 const Button = styled.button`
   padding: 0 20px;
+  align-self: flex-end;
   height: 40px;
   border: 0;
   border-radius: 5px;
@@ -160,8 +145,6 @@ const Card = styled.div`
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
 
-
-
   h2 {
     font-size: 16px;
     color: #333;
@@ -181,7 +164,6 @@ const CardCurso = styled(Card)`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  
 
   h2 {
     font-size: 16px;
@@ -195,6 +177,7 @@ const CardCurso = styled(Card)`
 
   button {
     padding: 0 20px;
+    align-self: flex-end;
     height: 40px;
     border: 0;
     border-radius: 5px;
@@ -208,8 +191,6 @@ const CardCurso = styled(Card)`
     }
   }
 `;
-
-
 
 const FormCadastro = styled.form`
 
@@ -259,6 +240,23 @@ const FormCadastro = styled.form`
 
   }
 
+  button {
+    padding: 0 20px;
+    align-self: flex-end;
+    height: 40px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all ease 0.4s;
+    &:hover {
+      background-color: #555;
+    }
+  }
+
+
 `;
 
 const HomePage = () => {
@@ -290,13 +288,11 @@ const HomePage = () => {
       toast.success("Curso cadastrado com sucesso!");
       const response = await getCursos();
       setCursos(response.data);
-      
     } else {
       toast.error("Erro ao cadastrar curso!");
     }
     e.target.reset();
     getCursos();
-   
   };
 
   if (loading) {
@@ -305,56 +301,52 @@ const HomePage = () => {
 
   return (
     <>
-    <Container>
-      <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
-      <div>
-        <h1>Graduação e Pós-graduação</h1>
-        <Nav>
-          <Button onClick={handleLogout}>Logout</Button>
-        </Nav>
-      </div>
-      <div>
-        <h2>Cadastrar curso</h2>
-        <FormCadastro onSubmit={handleSubmit}>
-          <label htmlFor="nome">Nome</label>
-          <input
-            onChange={(e) => setNome(e.target.value)}
-            type="text"
-            name="nome"
-            id="nome"
-          />
-          <label htmlFor="descricao">Descrição</label>
-          <TextArea
-            onChange={(e) => setDescricao(e.target.value)}
-            name="descricao"
-            id="descricao"
-          ></TextArea>
-          <button type="submit">Cadastrar</button>
-        </FormCadastro>
-      </div>
-      <div>
-        <h2>Cursos disponíveis</h2>
-        {cursos.map((curso) => (
-          
-            
-          <Grid key={curso.id} >
-            <Card>
-            <CardCurso>
-              <h2>{curso.nome}</h2>
-              <p>{curso.descricao}</p>
-              <button>Matricular</button>
-            </CardCurso>
-            </Card>                  
-          </Grid>
-   
-         
-        ))}
-      </div>
-      <Footer>
-        <h2>Contato</h2>
-        <p>douglas85rj@gmail.com</p>
-      </Footer>
-    </Container>
+      <Container>
+        <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
+        <div>
+          <h1>Graduação e Pós-graduação</h1>
+          <Nav>
+            <Button onClick={handleLogout}>Logout</Button>
+          </Nav>
+        </div>
+        <div>
+          <h2>Cadastrar curso</h2>
+          <FormCadastro onSubmit={handleSubmit}>
+            <label htmlFor="nome">Nome</label>
+            <input
+              onChange={(e) => setNome(e.target.value)}
+              type="text"
+              name="nome"
+              id="nome"
+            />
+            <label htmlFor="descricao">Descrição</label>
+            <TextArea
+              onChange={(e) => setDescricao(e.target.value)}
+              name="descricao"
+              id="descricao"
+            ></TextArea>
+            <button type="submit">Cadastrar</button>
+          </FormCadastro>
+        </div>
+        <div>
+          <h2>Cursos disponíveis</h2>
+          {cursos.map((curso) => (
+            <Grid key={curso.id}>
+              <Card>
+                <CardCurso>
+                  <h2>{curso.nome}</h2>
+                  <p>{curso.descricao}</p>
+                  <button>Matricular</button>
+                </CardCurso>
+              </Card>
+            </Grid>
+          ))}
+        </div>
+        <Footer>
+          <h2>Contato</h2>
+          <p>douglas85rj@gmail.com</p>
+        </Footer>
+      </Container>
     </>
   );
 };
