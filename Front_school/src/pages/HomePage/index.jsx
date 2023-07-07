@@ -6,35 +6,42 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 
-const Table = styled.table`
-  width: 100%;
-  background-color: #fff;
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
- 
-  thead {
-    font-size: 16px;
-    color: #333;
-    text-align: left;
-    tr {
-      th {
-        padding: 10px;
-      }
-    }
+  grid-template-columns: 1fr 3fr;
+  gap: 10px;
+  max-width: 1200px;
+
+
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
-  tbody {
-    font-size: 14px;
-    color: #555;
-    tr {
-      td {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-    }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
   }
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  @media (min-width: 1441px) {
+    grid-template-columns:  1fr;
+  }
+
+
+
+
 `;
+
+
+
 
 const Nav = styled.nav`
   display: flex;
@@ -143,12 +150,16 @@ const Grid = styled.div`
 
 const Card = styled.div`
   display: flex;
+
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+
   background-color: #fff6;
-  padding: 20px;
+  padding: 10px;
+  margin: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
 
 
   h2 {
@@ -294,6 +305,7 @@ const HomePage = () => {
 
   return (
     <>
+    <Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.TOP_RIGHT} />
       <div>
         <h1>Graduação e Pós-graduação</h1>
@@ -342,6 +354,7 @@ const HomePage = () => {
         <h2>Contato</h2>
         <p>douglas85rj@gmail.com</p>
       </Footer>
+    </Container>
     </>
   );
 };
