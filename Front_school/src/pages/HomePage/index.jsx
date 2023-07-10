@@ -7,21 +7,50 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
   grid-template-columns: 1fr 3fr;
-  gap: 10px;
-  max-width: 1200px;
-
+  gap: 20px;
+  padding: 20px;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-  }
 
-  @media (min-width: 769px) and (max-width: 1024px) {
-    grid-template-columns: 4fr;
+    .nav {
+      display: none;
+
+      &.active {
+        display: flex;
+
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+        a {
+          text-decoration: none;
+          color: #333;
+          font-size: 16px;
+          transition: all ease 0.4s;
+          &:hover {
+            color: #555;
+
+            button {
+              padding: 0 20px;
+              align-self: flex-end;
+              height: 40px;
+              border: 0;
+              border-radius: 5px;
+              background-color: #333;
+              color: #fff;
+              font-size: 16px;
+              cursor: pointer;
+              transition: all ease 0.4s;
+              &:hover {
+                background-color: #555;
+              }
+
+    
    
   }
 
@@ -125,8 +154,13 @@ const Grid = styled.div`
   }
 
   @media (min-width: 1025px) and (max-width: 1440px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 2fr;
   }
+
+  @media (min-width: 1441px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
 
 
 
